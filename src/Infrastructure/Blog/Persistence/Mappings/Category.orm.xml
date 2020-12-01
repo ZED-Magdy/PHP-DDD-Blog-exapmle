@@ -1,0 +1,12 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Domain\Blog\Entity\Category" table="categories" repository-class="App\Infrastructure\Blog\Repository\CategoryRepository">
+        <id name="id" type="CategoryId" column="id">
+            <generator strategy="NONE" />
+        </id>
+        <field name="name" type="CategoryName" unique="true" nullable="false"/>
+        <one-to-many field="posts" target-entity="App\Domain\Blog\Entity\Post" mapped-by="category" />
+    </entity>
+</doctrine-mapping>

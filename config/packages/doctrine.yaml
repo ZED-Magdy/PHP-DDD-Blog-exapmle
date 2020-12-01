@@ -1,0 +1,27 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+
+        # IMPORTANT: You MUST configure your server version,
+        # either here or in the DATABASE_URL env var (see .env file)
+        #server_version: '5.7'
+        types:
+            PostId: App\Infrastructure\Blog\Persistence\Types\PostIdType
+            CategoryId: App\Infrastructure\Blog\Persistence\Types\CategoryIdType
+            CategoryName: App\Infrastructure\Blog\Persistence\Types\CategoryNameType
+            PostContent: App\Infrastructure\Blog\Persistence\Types\PostContentType
+            PostSlug: App\Infrastructure\Blog\Persistence\Types\PostSlugType
+            PostTitle: App\Infrastructure\Blog\Persistence\Types\PostTitleType
+            TagId: App\Infrastructure\Blog\Persistence\Types\TagIdType
+            TagName: App\Infrastructure\Blog\Persistence\Types\TagNameType
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            App\Infrastructure\Blog\Persistence:
+                is_bundle: false
+                type: xml
+                dir: "%kernel.project_dir%/src/Infrastructure/Blog/Persistence/Mappings"
+                prefix: 'App\Domain\Blog\Entity'
+                alias: App
