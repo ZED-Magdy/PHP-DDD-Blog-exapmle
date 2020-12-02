@@ -18,7 +18,7 @@ class Post
     private $category;
     private $tags;
 
-    public function __construct(PostId $postId, PostSlug $postSlug, PostTitle $postTitle, PostContent $postContent, Category $category = null)
+    private function __construct(PostId $postId, PostSlug $postSlug, PostTitle $postTitle, PostContent $postContent, Category $category = null)
     {
         $this->id      = $postId;
         $this->slug    = $postSlug;
@@ -28,6 +28,26 @@ class Post
         $this->tags = new ArrayCollection();
     }
 
+
+    public static function create(PostId $postId, PostSlug $postSlug, PostTitle $postTitle, PostContent $postContent, Category $category = null): self
+    {
+        return new self($postId, $postSlug, $postTitle, $postContent, $category);
+    }
+
+
+    public function update(PostSlug $postSlug, PostTitle $postTitle, PostContent $postContent, Category $category = null, array $tags = null): self
+    {
+        $this->slug = $postSlug;
+        $this->title = $postTitle;
+        $this->content = $postContent;
+        if ($category) {
+            $this->category = $category;
+        }
+        if ($tags) {
+            $this->tags = $tags;
+        }
+        return $this;
+    }
     public function getId(): PostId
     {
         return $this->id;
@@ -52,7 +72,7 @@ class Post
     {
         return $this->category;
     }
-    
+
     /**
      *
      * @return Collection|Tag[]

@@ -20,6 +20,8 @@ interface PostRepositoryInterface
     public function fromId(PostId $postId): ?Post;
     public function fromSlug(PostSlug $postSlug): ?Post;
     public function fromTitle(PostTitle $postTitle): ?Post;
+    public function isAvailable(PostSlug $postSlug, PostTitle $postTitle, PostId $postId): bool;
     public function listPosts($options, int $page, int $limitPerPage): Paginator;
     public function save(Post $post): void;
+    public function remove(Post $post): void;
 }

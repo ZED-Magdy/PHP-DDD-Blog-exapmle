@@ -4,6 +4,7 @@ namespace App\Domain\Blog\Service;
 
 use App\Domain\Blog\Entity\Category;
 use App\Domain\Blog\Exception\PostNotFoundException;
+use App\Domain\Blog\ValueObject\CategoryId;
 use App\Domain\Blog\ValueObject\PostContent;
 use App\Domain\Blog\ValueObject\PostId;
 use App\Domain\Blog\ValueObject\PostSlug;
@@ -17,8 +18,8 @@ interface UpdatePostServiceInterface
      * @param PostSlug $postSlug
      * @param PostTitle $postTitle
      * @param PostContent $postContent
-     * @param Category $category
-     * @param array $tags
+     * @param CategoryId $categoryId
+     * @param array $tagsIds
      * @return boolean
      * @throws PostNotFoundException
      * @throws PostSlugAlreadyExistsException
@@ -26,5 +27,5 @@ interface UpdatePostServiceInterface
      * @throws CategoryNotFoundException
      * @throws TagNotFoundException
      */
-    public function execute(PostId $postId, PostSlug $postSlug, PostTitle $postTitle, PostContent $postContent, Category $category, array $tags): bool;
+    public function execute(PostId $postId, PostSlug $postSlug, PostTitle $postTitle, PostContent $postContent, CategoryId $categoryId = null, array $tagsIds = null): bool;
 }
