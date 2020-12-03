@@ -19,7 +19,7 @@ class DeletePostService implements DeletePostServiceInterface
     {
         $post = $this->postRepository->fromId($postId);
         if(!$post) {
-            throw new PostNotFoundException(`Post of id $postId->id() was not found.`);
+            throw new PostNotFoundException(`Post of id {$postId->id()} was not found.`);
         }
         $this->postRepository->remove($post); 
     }

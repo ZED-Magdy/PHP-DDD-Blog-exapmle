@@ -11,10 +11,9 @@ interface CreateCategoryServiceInterface
 {
     /**
      *
-     * @param CategoryId $categoryId
      * @param CategoryName $categoryName
      * @return Category
      * @throws CategoryNameAlreadyExistsException
      */
-    public function execute(CategoryId $categoryId, CategoryName $categoryName): Category;
+    public function execute(CategoryName $categoryName): Category;
 }

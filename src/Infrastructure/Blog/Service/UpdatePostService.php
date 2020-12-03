@@ -35,21 +35,18 @@ class UpdatePostService implements UpdatePostServiceInterface
     {
         $post = $this->postRepository->fromId($postId);
         if ($post == null) {
-            throw new PostNotFoundException("Cannot find post of id $postId->id()");
+            throw new PostNotFoundException("Cannot find post of id {$postId->id()}");
         }
         $this->specification->isAvailable($postSlug, $postTitle, $postId);
 
         if ($categoryId) {
             $category = $this->categoryRepository->fromId($categoryId);
         }
+        else{
+            $category = null;
+        }
         if ($tagsIds) {
-            $tags = [];
-            foreach ($tagsIds as $tagId) {
-                $tag = $this->tagRepository->fromId(
-                    TagId::fromString($tagId)
-                );
-                $tags[] = $tag;
-            }
+            $tags = $this->createTags($tagsIds);
         } else {
             $tags = null;
         }
@@ -58,5 +55,21 @@ class UpdatePostService implements UpdatePostServiceInterface
         $this->postRepository->save($post);
 
         return true;
+    }
+
+    /**
+     * @param array $tagsIds
+     * @return array
+     */
+    private function createTags(array $tagsIds): array
+    {
+        $tags = [];
+        foreach ($tagsIds as $tagId) {
+            $tag = $this->tagRepository->fromId(
+                TagId::fromString($tagId)
+            );
+            $tags[] = $tag;
+        }
+        return $tags;
     }
 }

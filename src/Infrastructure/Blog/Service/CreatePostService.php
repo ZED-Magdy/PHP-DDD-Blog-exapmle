@@ -41,7 +41,7 @@ class CreatePostService implements CreatePostServiceInterface
         if($categoryId) {
             $category = $this->categoryRepository->fromId($categoryId);
         }
-        $post = new Post(
+        $post = Post::create(
             $this->postRepository->nextIdentity(),
             $postSlug,
             $postTitle,

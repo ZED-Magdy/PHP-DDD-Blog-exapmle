@@ -5,6 +5,7 @@ namespace App\Infrastructure\Blog\Persistence\Repositoy;
 use App\Domain\Blog\Entity\Category;
 use App\Domain\Blog\Repository\CategoryRepositoryInterface;
 use App\Domain\Blog\ValueObject\CategoryId;
+use App\Domain\Blog\ValueObject\CategoryName;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -41,5 +42,10 @@ class CategoryRepository extends ServiceEntityRepository implements CategoryRepo
     {
         $this->_em->persist($category);
         $this->_em->flush();
+    }
+
+    public function fromName(CategoryName $categoryName): Category
+    {
+        return $this->findOneBy(['name' => $categoryName->name()]);
     }
 }
